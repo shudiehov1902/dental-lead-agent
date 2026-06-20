@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lumio Dental — оставить заявку</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F3F5F1;
+    --surface:#FFFFFF;
+    --ink:#1C2620;
+    --ink-soft:#5B655E;
+    --teal:#2F6B5E;
+    --teal-dark:#234F45;
+    --moss:#9FBFA8;
+    --amber:#C98A3E;
+    --line:#DDE3DA;
+    --radius:14px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Work Sans', sans-serif;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px;}
+
+  header.top{
+    padding:28px 24px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    max-width:1080px;
+    margin:0 auto;
+  }
+  .brand{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:20px;
+    letter-spacing:-0.01em;
+  }
+  .brand span{color:var(--teal);}
+  .top-note{
+    font-size:13px;
+    color:var(--ink-soft);
+  }
+
+  .hero{padding:24px 24px 8px;}
+  .eyebrow{
+    font-size:12px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--teal-dark);
+    font-weight:600;
+    margin-bottom:18px;
+  }
+  h1{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    font-size:clamp(34px, 5vw, 54px);
+    line-height:1.08;
+    letter-spacing:-0.01em;
+    margin:0 0 18px;
+    max-width:14ch;
+  }
+  .sub{
+    font-size:17px;
+    color:var(--ink-soft);
+    max-width:46ch;
+    margin:0 0 8px;
+  }
+
+  .grid{
+    display:grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap:28px;
+    align-items:start;
+    padding:32px 24px 64px;
+  }
+  @media (max-width: 860px){
+    .grid{grid-template-columns:1fr;}
+  }
+
+  .card{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:32px;
+  }
+
+  form .field{margin-bottom:18px;}
+  label{
+    display:block;
+    font-size:13px;
+    font-weight:500;
+    color:var(--ink-soft);
+    margin-bottom:6px;
+  }
+  input, select, textarea{
+    width:100%;
+    padding:12px 14px;
+    border:1px solid var(--line);
+    border-radius:10px;
+    font-family:inherit;
+    font-size:15px;
+    color:var(--ink);
+    background:#FCFDFB;
+  }
+  input:focus, select:focus, textarea:focus{
+    outline:2px solid var(--teal);
+    outline-offset:1px;
+    border-color:var(--teal);
+  }
+  textarea{min-height:96px; resize:vertical;}
+
+  button.submit{
+    width:100%;
+    padding:14px 18px;
+    background:var(--teal);
+    color:#fff;
+    border:none;
+    border-radius:10px;
+    font-family:inherit;
+    font-size:15px;
+    font-weight:600;
+    cursor:pointer;
+    transition:background .15s ease;
+  }
+  button.submit:hover{background:var(--teal-dark);}
+  button.submit:disabled{opacity:.6; cursor:default;}
+
+  .privacy-note{
+    font-size:12.5px;
+    color:var(--ink-soft);
+    margin-top:14px;
+    line-height:1.5;
+  }
+
+  .consent-field{margin-bottom:18px;}
+  .consent-label{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+    font-size:13px;
+    color:var(--ink-soft);
+    line-height:1.5;
+    cursor:pointer;
+  }
+  .consent-label input[type="checkbox"]{
+    width:16px;
+    height:16px;
+    margin-top:2px;
+    flex-shrink:0;
+    accent-color:var(--teal);
+    cursor:pointer;
+  }
+  .consent-link{
+    color:var(--teal-dark);
+    text-decoration:underline;
+  }
+
+  .success{
+    display:none;
+    text-align:center;
+    padding:28px 8px;
+  }
+  .success.show{display:block;}
+  form.hide{display:none;}
+  .success .check{
+    width:44px;height:44px;border-radius:50%;
+    background:var(--teal);
+    display:flex;align-items:center;justify-content:center;
+    margin:0 auto 16px;
+  }
+  .success h3{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    font-size:22px;
+    margin:0 0 8px;
+  }
+  .success p{color:var(--ink-soft); font-size:14.5px; max-width:36ch; margin:0 auto;}
+
+  .journey{padding:8px 4px;}
+  .journey h2{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    font-size:21px;
+    margin:0 0 6px;
+  }
+  .journey .lead{
+    font-size:14px;
+    color:var(--ink-soft);
+    margin:0 0 28px;
+    max-width:40ch;
+  }
+  .steps{position:relative; padding-left:30px;}
+  .steps::before{
+    content:'';
+    position:absolute;
+    left:9px; top:6px; bottom:6px;
+    width:2px;
+    background:var(--line);
+  }
+  .step{position:relative; padding-bottom:28px;}
+  .step:last-child{padding-bottom:0;}
+  .step::before{
+    content:'';
+    position:absolute;
+    left:-30px; top:2px;
+    width:20px;height:20px;
+    border-radius:50%;
+    background:var(--surface);
+    border:2px solid var(--moss);
+  }
+  .step.active::before{
+    border-color:var(--teal);
+    background:var(--teal);
+    box-shadow:0 0 0 4px rgba(47,107,94,0.15);
+  }
+  .step h4{
+    margin:0 0 4px;
+    font-size:15px;
+    font-weight:600;
+  }
+  .step p{
+    margin:0;
+    font-size:13.5px;
+    color:var(--ink-soft);
+  }
+  .step .tag{
+    display:inline-block;
+    margin-top:6px;
+    font-size:11px;
+    font-weight:600;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--amber);
+  }
+
+  footer{
+    border-top:1px solid var(--line);
+    padding:24px;
+    text-align:center;
+    font-size:12.5px;
+    color:var(--ink-soft);
+  }
+
+  @media (prefers-reduced-motion: no-preference){
+    .step{
+      opacity:0;
+      animation: rise .5s ease forwards;
+    }
+    .step:nth-child(1){animation-delay:.05s;}
+    .step:nth-child(2){animation-delay:.18s;}
+    .step:nth-child(3){animation-delay:.31s;}
+    .step:nth-child(4){animation-delay:.44s;}
+    @keyframes rise{
+      from{opacity:0; transform:translateY(8px);}
+      to{opacity:1; transform:translateY(0);}
+    }
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="brand">Lumio <span>Dental</span></div>
+  <div class="top-note">ул. Хрещатик, 15 · Пн–Сб 9:00–19:00</div>
+</header>
+
+<div class="hero wrap">
+  <div class="eyebrow">Заявка на консультацию</div>
+  <h1>Опишите, что беспокоит — мы свяжемся быстро</h1>
+  <p class="sub">Заявка сразу попадает к нашему менеджеру. Срочные случаи мы видим в течение пары минут — и ничего не уходит вам в ответ без проверки человеком.</p>
+</div>
+
+<div class="grid wrap">
+
+  <div class="card">
+    <form id="leadForm">
+      <div class="field">
+        <label for="name">Имя</label>
+        <input type="text" id="name" name="name" required>
+      </div>
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+      <div class="field">
+        <label for="phone">Телефон</label>
+        <input type="tel" id="phone" name="phone">
+      </div>
+      <div class="field">
+        <label for="service">Какая услуга интересует</label>
+        <select id="service" name="service" required>
+          <option value="">Выбрать…</option>
+          <option value="Consultation">Консультация</option>
+          <option value="Cleaning">Чистка</option>
+          <option value="Emergency">Срочная боль</option>
+          <option value="Other">Другое</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="message">Опишите ситуацию</label>
+        <textarea id="message" name="message" required placeholder="Например: болит зуб второй день, хочу записаться на эту неделю"></textarea>
+      </div>
+      <div class="field consent-field">
+        <label class="consent-label">
+          <input type="checkbox" id="consent" name="consent" required>
+          <span>Я согласен(на) на обработку моих персональных данных в соответствии с <a href="#" class="consent-link">Политикой конфиденциальности</a></span>
+        </label>
+      </div>
+
+      <button type="submit" class="submit" id="submitBtn">Отправить заявку</button>
+      <p class="privacy-note">Мы используем эти данные только для ответа на вашу заявку. Ничего не публикуется и не передаётся третьим лицам.</p>
+    </form>
+
+    <div class="success" id="successBlock">
+      <div class="check">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 10.5L8 14.5L16 5.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <h3>Заявка получена</h3>
+      <p>Менеджер увидит её в течение нескольких минут. Если это срочно — мы свяжемся первыми.</p>
+    </div>
+  </div>
+
+  <div class="journey">
+    <h2>Куда уходят ваши данные</h2>
+    <p class="lead">Полная прозрачность процесса — от заявки до ответа.</p>
+    <div class="steps">
+      <div class="step active">
+        <h4>Заявка получена</h4>
+        <p>Имя, контакт и описание ситуации сохраняются у нас сразу после отправки.</p>
+      </div>
+      <div class="step">
+        <h4>Система определяет срочность</h4>
+        <p>Сильная боль, отёк или кровотечение получают высокий приоритет автоматически.</p>
+        <span class="tag">занимает секунды</span>
+      </div>
+      <div class="step">
+        <h4>Менеджер проверяет</h4>
+        <p>Человек видит заявку и черновик ответа — и решает, что отправить.</p>
+      </div>
+      <div class="step">
+        <h4>Вы получаете ответ</h4>
+        <p>Ничего не уходит вам автоматически. Только после проверки нашим сотрудником.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  Lumio Dental · Заявки обрабатываются в рабочие часы клиники
+</footer>
+
+<script>
+  // ЗАМЕНИ на свой Webhook URL из Make (модуль Custom Webhook)
+  const WEBHOOK_URL = "https://shudegov1902.app.n8n.cloud/webhook/lead-intake";
+
+  const form = document.getElementById('leadForm');
+  const successBlock = document.getElementById('successBlock');
+  const submitBtn = document.getElementById('submitBtn');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Отправляем…';
+
+    const payload = {
+      name: document.getElementById('name').value,
+      email: document.getElementById('email').value,
+      phone: document.getElementById('phone').value,
+      service: document.getElementById('service').value,
+      message: document.getElementById('message').value
+    };
+
+    try {
+      await fetch(WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+    } catch (err) {
+      console.error('Webhook error:', err);
+    }
+
+    form.classList.add('hide');
+    successBlock.classList.add('show');
+  });
+</script>
+
+</body>
+</html>
