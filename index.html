@@ -39,6 +39,8 @@
     justify-content:space-between;
     max-width:1080px;
     margin:0 auto;
+    gap:16px;
+    flex-wrap:wrap;
   }
   .brand{
     font-family:'Fraunces', serif;
@@ -47,9 +49,40 @@
     letter-spacing:-0.01em;
   }
   .brand span{color:var(--teal);}
+  .top-right{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    flex-wrap:wrap;
+  }
   .top-note{
     font-size:13px;
     color:var(--ink-soft);
+  }
+  .lang-switch{
+    display:flex;
+    gap:4px;
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:999px;
+    padding:3px;
+  }
+  .lang-btn{
+    border:none;
+    background:transparent;
+    font-family:'Work Sans', sans-serif;
+    font-size:12px;
+    font-weight:600;
+    letter-spacing:.02em;
+    color:var(--ink-soft);
+    padding:6px 11px;
+    border-radius:999px;
+    cursor:pointer;
+    transition:background .15s ease, color .15s ease;
+  }
+  .lang-btn.active{
+    background:var(--teal);
+    color:#fff;
   }
 
   .hero{padding:24px 24px 8px;}
@@ -68,7 +101,7 @@
     line-height:1.08;
     letter-spacing:-0.01em;
     margin:0 0 18px;
-    max-width:14ch;
+    max-width:16ch;
   }
   .sub{
     font-size:17px;
@@ -272,13 +305,21 @@
 
 <header class="top">
   <div class="brand">Lumio <span>Dental</span></div>
-  <div class="top-note">ул. Хрещатик, 15 · Пн–Сб 9:00–19:00</div>
+  <div class="top-right">
+    <div class="top-note" data-i18n="topNote">ул. Хрещатик, 15 · Пн–Сб 9:00–19:00</div>
+    <div class="lang-switch" id="langSwitch">
+      <button type="button" class="lang-btn" data-lang="ru">RU</button>
+      <button type="button" class="lang-btn" data-lang="uk">UA</button>
+      <button type="button" class="lang-btn" data-lang="en">EN</button>
+      <button type="button" class="lang-btn" data-lang="sk">SK</button>
+    </div>
+  </div>
 </header>
 
 <div class="hero wrap">
-  <div class="eyebrow">Заявка на консультацию</div>
-  <h1>Опишите, что беспокоит — мы свяжемся быстро</h1>
-  <p class="sub">Заявка сразу попадает к нашему менеджеру. Срочные случаи мы видим в течение пары минут — и ничего не уходит вам в ответ без проверки человеком.</p>
+  <div class="eyebrow" data-i18n="eyebrow">Заявка на консультацию</div>
+  <h1 data-i18n="h1">Опишите, что беспокоит — мы свяжемся быстро</h1>
+  <p class="sub" data-i18n="sub">Заявка сразу попадает к нашему менеджеру. Срочные случаи мы видим в течение пары минут — и ничего не уходит вам в ответ без проверки человеком.</p>
 </div>
 
 <div class="grid wrap">
@@ -286,84 +327,202 @@
   <div class="card">
     <form id="leadForm">
       <div class="field">
-        <label for="name">Имя</label>
+        <label for="name" data-i18n="labelName">Имя</label>
         <input type="text" id="name" name="name" required>
       </div>
       <div class="field">
-        <label for="email">Email</label>
+        <label for="email" data-i18n="labelEmail">Email</label>
         <input type="email" id="email" name="email" required>
       </div>
       <div class="field">
-        <label for="phone">Телефон</label>
+        <label for="phone" data-i18n="labelPhone">Телефон</label>
         <input type="tel" id="phone" name="phone">
       </div>
       <div class="field">
-        <label for="service">Какая услуга интересует</label>
+        <label for="service" data-i18n="labelService">Какая услуга интересует</label>
         <select id="service" name="service" required>
-          <option value="">Выбрать…</option>
-          <option value="Consultation">Консультация</option>
-          <option value="Cleaning">Чистка</option>
-          <option value="Emergency">Срочная боль</option>
-          <option value="Other">Другое</option>
+          <option value="" data-i18n="optSelect">Выбрать…</option>
+          <option value="Consultation" data-i18n="optConsultation">Консультация</option>
+          <option value="Cleaning" data-i18n="optCleaning">Чистка</option>
+          <option value="Emergency" data-i18n="optEmergency">Срочная боль</option>
+          <option value="Other" data-i18n="optOther">Другое</option>
         </select>
       </div>
       <div class="field">
-        <label for="message">Опишите ситуацию</label>
-        <textarea id="message" name="message" required placeholder="Например: болит зуб второй день, хочу записаться на эту неделю"></textarea>
+        <label for="preferredTime" data-i18n="labelPreferred">Когда вам удобно?</label>
+        <select id="preferredTime" name="preferredTime">
+          <option value="Any" data-i18n="optAny">Без разницы</option>
+          <option value="Morning (9:00-12:00)" data-i18n="optMorning">Утром (9:00–12:00)</option>
+          <option value="Afternoon (12:00-16:00)" data-i18n="optDay">Днём (12:00–16:00)</option>
+          <option value="Evening (16:00-19:00)" data-i18n="optEvening">Вечером (16:00–19:00)</option>
+        </select>
       </div>
+      <div class="field">
+        <label for="message" data-i18n="labelMessage">Опишите ситуацию</label>
+        <textarea id="message" name="message" required data-i18n-placeholder="placeholderMessage" placeholder="Например: болит зуб второй день, хочу записаться на эту неделю"></textarea>
+      </div>
+
       <div class="field consent-field">
         <label class="consent-label">
           <input type="checkbox" id="consent" name="consent" required>
-          <span>Я согласен(на) на обработку моих персональных данных в соответствии с <a href="#" class="consent-link">Политикой конфиденциальности</a></span>
+          <span><span data-i18n="consentText">Я согласен(на) на обработку моих персональных данных в соответствии с</span> <a href="#" class="consent-link" data-i18n="consentLink">Политикой конфиденциальности</a></span>
         </label>
       </div>
 
-      <button type="submit" class="submit" id="submitBtn">Отправить заявку</button>
-      <p class="privacy-note">Мы используем эти данные только для ответа на вашу заявку. Ничего не публикуется и не передаётся третьим лицам.</p>
+      <button type="submit" class="submit" id="submitBtn" data-i18n="submitBtn">Отправить заявку</button>
+      <p class="privacy-note" data-i18n="privacyNote">Мы используем эти данные только для ответа на вашу заявку. Ничего не публикуется и не передаётся третьим лицам.</p>
     </form>
 
     <div class="success" id="successBlock">
       <div class="check">
         <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 10.5L8 14.5L16 5.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </div>
-      <h3>Заявка получена</h3>
-      <p>Менеджер увидит её в течение нескольких минут. Если это срочно — мы свяжемся первыми.</p>
+      <h3 data-i18n="successTitle">Заявка получена</h3>
+      <p data-i18n="successText">Менеджер увидит её в течение нескольких минут. Если это срочно — мы свяжемся первыми.</p>
     </div>
   </div>
 
   <div class="journey">
-    <h2>Куда уходят ваши данные</h2>
-    <p class="lead">Полная прозрачность процесса — от заявки до ответа.</p>
+    <h2 data-i18n="journeyTitle">Куда уходят ваши данные</h2>
+    <p class="lead" data-i18n="journeyLead">Полная прозрачность процесса — от заявки до ответа.</p>
     <div class="steps">
       <div class="step active">
-        <h4>Заявка получена</h4>
-        <p>Имя, контакт и описание ситуации сохраняются у нас сразу после отправки.</p>
+        <h4 data-i18n="step1Title">Заявка получена</h4>
+        <p data-i18n="step1Text">Имя, контакт и описание ситуации сохраняются у нас сразу после отправки.</p>
       </div>
       <div class="step">
-        <h4>Система определяет срочность</h4>
-        <p>Сильная боль, отёк или кровотечение получают высокий приоритет автоматически.</p>
-        <span class="tag">занимает секунды</span>
+        <h4 data-i18n="step2Title">Система определяет срочность</h4>
+        <p data-i18n="step2Text">Сильная боль, отёк или кровотечение получают высокий приоритет автоматически.</p>
+        <span class="tag" data-i18n="step2Tag">занимает секунды</span>
       </div>
       <div class="step">
-        <h4>Менеджер проверяет</h4>
-        <p>Человек видит заявку и черновик ответа — и решает, что отправить.</p>
+        <h4 data-i18n="step3Title">Менеджер проверяет</h4>
+        <p data-i18n="step3Text">Человек видит заявку и черновик ответа — и решает, что отправить.</p>
       </div>
       <div class="step">
-        <h4>Вы получаете ответ</h4>
-        <p>Ничего не уходит вам автоматически. Только после проверки нашим сотрудником.</p>
+        <h4 data-i18n="step4Title">Вы получаете ответ</h4>
+        <p data-i18n="step4Text">Ничего не уходит вам автоматически. Только после проверки нашим сотрудником.</p>
       </div>
     </div>
   </div>
 
 </div>
 
-<footer>
+<footer data-i18n="footer">
   Lumio Dental · Заявки обрабатываются в рабочие часы клиники
 </footer>
 
 <script>
-  // ЗАМЕНИ на свой Webhook URL из Make (модуль Custom Webhook)
   const WEBHOOK_URL = "https://shudegov1902.app.n8n.cloud/webhook/lead-intake";
+
+  const translations = {
+    ru: {
+      topNote:"ул. Хрещатик, 15 · Пн–Сб 9:00–19:00",
+      eyebrow:"Заявка на консультацию",
+      h1:"Опишите, что беспокоит — мы свяжемся быстро",
+      sub:"Заявка сразу попадает к нашему менеджеру. Срочные случаи мы видим в течение пары минут — и ничего не уходит вам в ответ без проверки человеком.",
+      labelName:"Имя", labelEmail:"Email", labelPhone:"Телефон", labelService:"Какая услуга интересует",
+      optSelect:"Выбрать…", optConsultation:"Консультация", optCleaning:"Чистка", optEmergency:"Срочная боль", optOther:"Другое",
+      labelPreferred:"Когда вам удобно?", optAny:"Без разницы", optMorning:"Утром (9:00–12:00)", optDay:"Днём (12:00–16:00)", optEvening:"Вечером (16:00–19:00)",
+      labelMessage:"Опишите ситуацию", placeholderMessage:"Например: болит зуб второй день, хочу записаться на эту неделю",
+      consentText:"Я согласен(на) на обработку моих персональных данных в соответствии с", consentLink:"Политикой конфиденциальности",
+      submitBtn:"Отправить заявку", submitBtnSending:"Отправляем…",
+      privacyNote:"Мы используем эти данные только для ответа на вашу заявку. Ничего не публикуется и не передаётся третьим лицам.",
+      successTitle:"Заявка получена", successText:"Менеджер увидит её в течение нескольких минут. Если это срочно — мы свяжемся первыми.",
+      journeyTitle:"Куда уходят ваши данные", journeyLead:"Полная прозрачность процесса — от заявки до ответа.",
+      step1Title:"Заявка получена", step1Text:"Имя, контакт и описание ситуации сохраняются у нас сразу после отправки.",
+      step2Title:"Система определяет срочность", step2Text:"Сильная боль, отёк или кровотечение получают высокий приоритет автоматически.", step2Tag:"занимает секунды",
+      step3Title:"Менеджер проверяет", step3Text:"Человек видит заявку и черновик ответа — и решает, что отправить.",
+      step4Title:"Вы получаете ответ", step4Text:"Ничего не уходит вам автоматически. Только после проверки нашим сотрудником.",
+      footer:"Lumio Dental · Заявки обрабатываются в рабочие часы клиники"
+    },
+    uk: {
+      topNote:"вул. Хрещатик, 15 · Пн–Сб 9:00–19:00",
+      eyebrow:"Заявка на консультацію",
+      h1:"Опишіть, що турбує — ми зв'яжемося швидко",
+      sub:"Заявка одразу потрапляє до нашого менеджера. Термінові випадки ми бачимо протягом пари хвилин — і нічого не надсилається вам у відповідь без перевірки людиною.",
+      labelName:"Ім'я", labelEmail:"Email", labelPhone:"Телефон", labelService:"Яка послуга цікавить",
+      optSelect:"Обрати…", optConsultation:"Консультація", optCleaning:"Чищення", optEmergency:"Термінова біль", optOther:"Інше",
+      labelPreferred:"Коли вам зручно?", optAny:"Без різниці", optMorning:"Вранці (9:00–12:00)", optDay:"Вдень (12:00–16:00)", optEvening:"Ввечері (16:00–19:00)",
+      labelMessage:"Опишіть ситуацію", placeholderMessage:"Наприклад: болить зуб другий день, хочу записатися на цей тиждень",
+      consentText:"Я погоджуюсь на обробку моїх персональних даних відповідно до", consentLink:"Політики конфіденційності",
+      submitBtn:"Надіслати заявку", submitBtnSending:"Надсилаємо…",
+      privacyNote:"Ми використовуємо ці дані лише для відповіді на вашу заявку. Нічого не публікується і не передається третім особам.",
+      successTitle:"Заявку отримано", successText:"Менеджер побачить її протягом кількох хвилин. Якщо це терміново — ми зв'яжемося першими.",
+      journeyTitle:"Куди йдуть ваші дані", journeyLead:"Повна прозорість процесу — від заявки до відповіді.",
+      step1Title:"Заявку отримано", step1Text:"Ім'я, контакт і опис ситуації зберігаються у нас одразу після надсилання.",
+      step2Title:"Система визначає терміновість", step2Text:"Сильний біль, набряк або кровотеча автоматично отримують високий пріоритет.", step2Tag:"займає секунди",
+      step3Title:"Менеджер перевіряє", step3Text:"Людина бачить заявку та чернетку відповіді — і вирішує, що надіслати.",
+      step4Title:"Ви отримуєте відповідь", step4Text:"Нічого не надсилається вам автоматично. Лише після перевірки нашим співробітником.",
+      footer:"Lumio Dental · Заявки опрацьовуються в робочі години клініки"
+    },
+    en: {
+      topNote:"15 Khreshchatyk St · Mon–Sat 9:00–19:00",
+      eyebrow:"Request a consultation",
+      h1:"Tell us what's bothering you — we'll get back to you fast",
+      sub:"Your request goes straight to our manager. We see urgent cases within minutes — and nothing is sent back to you without a human review.",
+      labelName:"Name", labelEmail:"Email", labelPhone:"Phone", labelService:"Which service interests you",
+      optSelect:"Select…", optConsultation:"Consultation", optCleaning:"Cleaning", optEmergency:"Urgent pain", optOther:"Other",
+      labelPreferred:"When works for you?", optAny:"No preference", optMorning:"Morning (9:00–12:00)", optDay:"Afternoon (12:00–16:00)", optEvening:"Evening (16:00–19:00)",
+      labelMessage:"Describe your situation", placeholderMessage:"E.g.: tooth has been hurting for two days, would like to book this week",
+      consentText:"I agree to the processing of my personal data in accordance with the", consentLink:"Privacy Policy",
+      submitBtn:"Send request", submitBtnSending:"Sending…",
+      privacyNote:"We only use this data to respond to your request. Nothing is published or shared with third parties.",
+      successTitle:"Request received", successText:"Our manager will see it within minutes. If it's urgent, we'll reach out first.",
+      journeyTitle:"Where your data goes", journeyLead:"Full transparency — from request to reply.",
+      step1Title:"Request received", step1Text:"Your name, contact, and description are saved as soon as you submit.",
+      step2Title:"System determines urgency", step2Text:"Severe pain, swelling, or bleeding automatically get high priority.", step2Tag:"takes seconds",
+      step3Title:"Manager reviews", step3Text:"A person sees the request and the draft reply — and decides what to send.",
+      step4Title:"You get a reply", step4Text:"Nothing is sent automatically. Only after review by our staff.",
+      footer:"Lumio Dental · Requests are processed during clinic hours"
+    },
+    sk: {
+      topNote:"Khreshchatyk 15 · Po–So 9:00–19:00",
+      eyebrow:"Žiadosť o konzultáciu",
+      h1:"Opíšte, čo vás trápi — ozveme sa rýchlo",
+      sub:"Vaša žiadosť ide priamo k nášmu manažérovi. Urgentné prípady vidíme do pár minút — a nič sa vám neodošle bez kontroly človekom.",
+      labelName:"Meno", labelEmail:"Email", labelPhone:"Telefón", labelService:"Aká služba vás zaujíma",
+      optSelect:"Vybrať…", optConsultation:"Konzultácia", optCleaning:"Čistenie", optEmergency:"Urgentná bolesť", optOther:"Iné",
+      labelPreferred:"Kedy sa vám hodí?", optAny:"Bez rozdielu", optMorning:"Ráno (9:00–12:00)", optDay:"Cez deň (12:00–16:00)", optEvening:"Večer (16:00–19:00)",
+      labelMessage:"Opíšte situáciu", placeholderMessage:"Napr.: bolí ma zub už druhý deň, chcel(a) by som sa objednať tento týždeň",
+      consentText:"Súhlasím so spracovaním mojich osobných údajov v súlade s", consentLink:"Zásadami ochrany osobných údajov",
+      submitBtn:"Odoslať žiadosť", submitBtnSending:"Odosielame…",
+      privacyNote:"Tieto údaje používame len na odpoveď na vašu žiadosť. Nič sa nezverejňuje ani neposkytuje tretím stranám.",
+      successTitle:"Žiadosť prijatá", successText:"Manažér ju uvidí do niekoľkých minút. Ak je to urgentné, ozveme sa ako prví.",
+      journeyTitle:"Kam idú vaše údaje", journeyLead:"Úplná transparentnosť procesu — od žiadosti po odpoveď.",
+      step1Title:"Žiadosť prijatá", step1Text:"Meno, kontakt a opis situácie sa uložia hneď po odoslaní.",
+      step2Title:"Systém určí naliehavosť", step2Text:"Silná bolesť, opuch alebo krvácanie automaticky získajú vysokú prioritu.", step2Tag:"trvá pár sekúnd",
+      step3Title:"Manažér skontroluje", step3Text:"Človek vidí žiadosť a koncept odpovede — a rozhodne, čo odoslať.",
+      step4Title:"Dostanete odpoveď", step4Text:"Nič sa neodosiela automaticky. Len po kontrole naším zamestnancom.",
+      footer:"Lumio Dental · Žiadosti spracúvame počas otváracích hodín kliniky"
+    }
+  };
+
+  let currentLang = 'ru';
+
+  function setLanguage(lang) {
+    if (!translations[lang]) return;
+    currentLang = lang;
+    document.documentElement.lang = lang;
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (translations[lang][key] !== undefined) el.textContent = translations[lang][key];
+    });
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+      const key = el.getAttribute('data-i18n-placeholder');
+      if (translations[lang][key] !== undefined) el.placeholder = translations[lang][key];
+    });
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.lang === lang);
+    });
+  }
+
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.addEventListener('click', () => setLanguage(btn.dataset.lang));
+  });
+
+  const browserLang = (navigator.language || 'ru').slice(0,2).toLowerCase();
+  setLanguage(translations[browserLang] ? browserLang : 'ru');
 
   const form = document.getElementById('leadForm');
   const successBlock = document.getElementById('successBlock');
@@ -372,14 +531,16 @@
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     submitBtn.disabled = true;
-    submitBtn.textContent = 'Отправляем…';
+    submitBtn.textContent = translations[currentLang].submitBtnSending;
 
     const payload = {
       name: document.getElementById('name').value,
       email: document.getElementById('email').value,
       phone: document.getElementById('phone').value,
       service: document.getElementById('service').value,
-      message: document.getElementById('message').value
+      message: document.getElementById('message').value,
+      preferredTime: document.getElementById('preferredTime').value,
+      language: currentLang
     };
 
     try {
