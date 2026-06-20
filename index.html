@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
 <style>
   :root{
     --bg:#F3F5F1;
@@ -415,6 +416,16 @@
 <script>
   const WEBHOOK_URL = "https://shudegov1902.app.n8n.cloud/webhook/lead-intake";
 
+  // Telegram Mini App integration — no-op safely if opened outside Telegram
+  const tg = window.Telegram && window.Telegram.WebApp ? window.Telegram.WebApp : null;
+  if (tg) {
+    tg.ready();
+    tg.expand();
+    if (tg.themeParams && tg.themeParams.bg_color) {
+      document.documentElement.style.setProperty('--bg', tg.themeParams.bg_color);
+    }
+  }
+
   const translations = {
     ru: {
       topNote:"ул. Хрещатик, 15 · Пн–Сб 9:00–19:00",
@@ -555,6 +566,10 @@
 
     form.classList.add('hide');
     successBlock.classList.add('show');
+
+    if (tg) {
+      setTimeout(() => tg.close(), 2500);
+    }
   });
 </script>
 
